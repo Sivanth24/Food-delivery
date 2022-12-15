@@ -43,14 +43,7 @@ const Header = () => {
     }
 
     useEffect(() => {
-        if(user?.photoURL) {
-            setPhoto(user?.photoURL)
-            console.log("Sign-in provider: " + user?.providerId);
-        console.log("  Provider-specific UID: " + user?.uid);
-        console.log("  Name: " + user?.displayName);
-        console.log("  Email: " + user?.email);
-        console.log("  Photo URL: " + user?.photoURL);
-        }
+        if(user?.photoURL) {setPhoto(user?.photoURL)}
         else {setPhoto(Avatar)}
     }, [user])
   
