@@ -7,6 +7,7 @@ import { getAllFoodItems } from "./utils/firebaseFunctions"
 import { actionType } from "./context/reducer"
 
 const App = () => {
+    // eslint-disable-next-line
     const [{ foodItems }, dispatch] = useStateValue()
 
     const fetchData = async () => {
@@ -20,7 +21,8 @@ const App = () => {
 
     useEffect(() => {
       fetchData()
-    }, [])
+      // eslint-disable-next-line
+    },[])
 
   return (
     <AnimatePresence>

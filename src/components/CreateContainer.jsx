@@ -19,7 +19,7 @@ const CreateContainer = () => {
     const [alertStatus, setAlertStatus] = useState('danger')
     const [msg, setMsg] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-    const [{ foodItems }, dispatch] = useStateValue()
+    const [dispatch] = useStateValue()
 
     const uploadImage = (e) => {
       setIsLoading(true)
@@ -92,7 +92,7 @@ const CreateContainer = () => {
           const data = {
             id: `${Date.now()}`,
             title: title,
-            categry: category,
+            category: category,
             imageURL: imageAsset,
             calories: calories,
             quantity: 1,
@@ -262,5 +262,5 @@ const CreateContainer = () => {
     </div>
   )
 }
-{}
+
 export default CreateContainer
