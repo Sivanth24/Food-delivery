@@ -180,7 +180,7 @@ const CreateContainer = () => {
             {categories && categories.map((item) => (
               <option 
                 key={item.id} 
-                className="text-base border-0 outline-none capitalize bg-white text-headingColor"
+                className="text-base border-0 outline-none capitalize bg-white text-textColor"
                 value={item.urlParamName}
               >
                 {item.name}
