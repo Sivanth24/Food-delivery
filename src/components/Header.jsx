@@ -53,7 +53,7 @@ const Header = () => {
         <div className="hidden md:flex w-full h-full items-center justify-between">
             <Link to={"/"} className="flex items-center gap-2">
                 <img src={Logo} className="w-8 object-cover" alt='logo' />
-                <p className="text-headingColor text-xl font-bold">City</p>
+                <p className="text-textColor text-xl font-bold">City</p>
             </Link>
             <div className="flex items-center gap-8">
                 <motion.ul
@@ -62,16 +62,16 @@ const Header = () => {
                     exit={{opacity: 0, x: 200}}
                     className="flex items-center gap-8 ml-auto"
                 >
-                    <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
+                    <li className="text-base text-textColor hover:text-textColor duration-100 transition-all ease-in-out cursor-pointer">
                         Home
                     </li>
-                    <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
+                    <li className="text-base text-textColor hover:text-textColor duration-100 transition-all ease-in-out cursor-pointer">
                         Menu
                     </li>
-                    <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
+                    <li className="text-base text-textColor hover:text-textColor duration-100 transition-all ease-in-out cursor-pointer">
                         About Us
                     </li>
-                    <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
+                    <li className="text-base text-textColor hover:text-textColor duration-100 transition-all ease-in-out cursor-pointer">
                         Services
                     </li>
                 </motion.ul>
@@ -133,7 +133,7 @@ const Header = () => {
             </div>
             <Link to={"/"} className="flex items-center gap-2">
                 <img src={Logo} className="w-8 object-cover" alt='logo' />
-                <p className="text-headingColor text-xl font-bold">City</p>
+                <p className="text-textColor text-xl font-bold">City</p>
             </Link>
             <div className="relative">
                 <motion.img
@@ -165,25 +165,25 @@ const Header = () => {
                             }
                             <ul className="flex flex-col">
                                 <li 
-                                    className="text-base text-textColor hover:text-headingColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
+                                    className="text-base text-textColor hover:text-textColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
                                     onClick={() => setIsMenu(false)}
                                 >
                                     Home
                                 </li>
                                 <li 
-                                    className="text-base text-textColor hover:text-headingColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
+                                    className="text-base text-textColor hover:text-textColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
                                     onClick={() => setIsMenu(false)}
                                 >
                                     Menu
                                 </li>
                                 <li 
-                                    className="text-base text-textColor hover:text-headingColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
+                                    className="text-base text-textColor hover:text-textColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
                                     onClick={() => setIsMenu(false)}
                                 >
                                     About Us
                                 </li>
                                 <li 
-                                    className="text-base text-textColor hover:text-headingColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
+                                    className="text-base text-textColor hover:text-textColor hover:bg-slate-100 px-4 py-2 duration-100 transition-all ease-in-out cursor-pointer"
                                     onClick={() => setIsMenu(false)}
                                 >
                                     Services

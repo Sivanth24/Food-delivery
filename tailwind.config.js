@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -45,16 +46,12 @@ module.exports = {
         "2xl": "1536px",
       },
       colors: {
-        headingColor: "#2e2e2e",
-        textColor: "#515151",
-        cartNumBg: "#e80013",
-        primary: "#f5f3f3",
-        cardOverlay: "rgba(256,256,256,0.4)",
-        lighttextGray: "#9ca0ab",
+        textColor: "#363636",
+        orangeText: "#FF894C",
+        cartNumBg: "#DC2F2F",
+        primary: "#F8F8F8",
+        lighttextGray: "#9CA0AB",
         card: "rgba(256,256,256,0.8)",
-        cartBg: "#282a2c",
-        cartItem: "#2e3033",
-        cartTotal: "#343739",
       },
     },
   },
