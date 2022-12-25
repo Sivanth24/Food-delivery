@@ -10,6 +10,7 @@ import { useStateValue } from '../context/StateProvider'
 import { actionType } from '../context/reducer'
 
 const CreateContainer = () => {
+    const [{ theme }, dispatch] = useStateValue()
     const [title, setTitle] = useState("")
     const [calories, setCalories] = useState("")
     const [price, setPrice] = useState("")
@@ -19,7 +20,9 @@ const CreateContainer = () => {
     const [alertStatus, setAlertStatus] = useState('danger')
     const [msg, setMsg] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-    const [dispatch] = useStateValue()
+    const [percentage, setPercentage] = useState('')
+    const borderColor = theme ? 'border-primary' : 'border-textColor'
+    const iconColor = theme ? 'text-primary' : 'text-textColor'
 
     const uploadImage = (e) => {
       setIsLoading(true)
@@ -28,17 +31,8 @@ const CreateContainer = () => {
       const uploadTask = uploadBytesResumable(storageRef, imageFile)
 
       uploadTask.on('state_changed', (snapshot) => {
-        const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        console.log(`Upload is ${uploadProgress}% done`)
-        switch (snapshot.state) {
-          case 'paused':
-            console.log('Upload is paused')
-            break;
-          case 'running':
-            console.log('Upload is running')
-            break;
-          // no default
-        }
+        const uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+        setPercentage(uploadProgress)
       }, (error) => {
         console.log(error)
         setFields(true)
@@ -54,6 +48,7 @@ const CreateContainer = () => {
           setIsLoading(false)
           setFields(true)
           setMsg('Image uploaded successfully')
+          setPercentage('')
           setAlertStatus('success')
           setTimeout(() => {
             setFields(false)
@@ -140,7 +135,7 @@ const CreateContainer = () => {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
-      <div className="w-[90%] md:w-[75%] border border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center gap-4">
+      <div className={`w-[90%] md:w-[75%] border ${borderColor} rounded-lg p-4 flex flex-col items-center justify-center gap-4`}>
         {fields && (
           <motion.p
             initial={{ opacity: 0 }}
@@ -155,8 +150,8 @@ const CreateContainer = () => {
             {msg}
           </motion.p>
         )}
-        <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-          <MdFastfood className="text-xl text-gray-700"/>
+        <div className={`w-full py-2 border-b ${borderColor} flex items-center gap-2`}>
+          <MdFastfood className={`text-xl ${iconColor}`}/>
           <input
             className="w-full h-full text-lg bg-transparent outline-none border-none placeholder:text-gray-400 text-textColor" 
             type="text" 
@@ -173,14 +168,14 @@ const CreateContainer = () => {
           >
             <option 
               value="other" 
-              className="bg-white"
+              className="bg-primary"
             >
               Select Category
             </option>
             {categories && categories.map((item) => (
               <option 
                 key={item.id} 
-                className="text-base border-0 outline-none capitalize bg-white text-textColor"
+                className="text-base border-0 outline-none capitalize bg-primary text-textColor"
                 value={item.urlParamName}
               >
                 {item.name}
@@ -188,14 +183,14 @@ const CreateContainer = () => {
             ))}
           </select>
         </div>
-        <div className="group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-225 md:h-420 cursor-pointer rounded-lg">
-          {isLoading ? <Loader /> : <>
+        <div className={`group flex justify-center items-center flex-col border-2 border-dotted ${borderColor} w-full h-225 md:h-420 cursor-pointer rounded-lg`}>
+          {isLoading ? <Loader percentage={percentage}/> : <>
               {!imageAsset 
                 ? <>
                     <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
                       <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-                        <MdCloudUpload className="text-gray-500 text-3xl md:text-5xl hover:text-gray-700"/>
-                        <p className="text-gray-500 hover:text-gray-700">Click here to upload</p>
+                        <MdCloudUpload className={`text-gray-500 text-3xl md:text-5xl hover:${iconColor}`}/>
+                        <p className={`text-gray-500 hover:${iconColor}`}>Click here to upload</p>
                       </div>
                       <input 
                         type="file"
@@ -218,7 +213,7 @@ const CreateContainer = () => {
                         className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md transition-all ease-in-out duration-500"
                         onClick={deleteImage}
                       >
-                        <MdDelete className="text-white" />
+                        <MdDelete className="text-primary" />
                       </button>
                     </div>
                   </>
@@ -226,8 +221,8 @@ const CreateContainer = () => {
           </>}
         </div>
         <div className="w-full flex flex-col md:flex-row items-center gap-3">
-          <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdFoodBank className="text-2xl text-gray-700"/>
+          <div className={`w-full py-2 border-b ${borderColor} flex items-center gap-2`}>
+            <MdFoodBank className={`text-2xl ${iconColor}`}/>
             <input 
               type="text"
               required
@@ -237,8 +232,8 @@ const CreateContainer = () => {
               onChange={(e) => setCalories(e.target.value)}
             />
           </div>
-          <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdAttachMoney className="text-2xl text-gray-700"/>
+          <div className={`w-full py-2 border-b ${borderColor} flex items-center gap-2`}>
+            <MdAttachMoney className={`text-2xl ${iconColor}`}/>
             <input 
               type="text"
               required
@@ -250,13 +245,15 @@ const CreateContainer = () => {
           </div>
         </div>
         <div className="w-full flex items-center">
-          <button 
+          <motion.button
+            whileTap={{scale: 0.9}}
+            whileHover={{scale: 1.05}} 
             type='button'
-            className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none bg-emerald-500 px-12 py-2 rounded-lg text-lg text-white font-semibold"
+            className="ml-0 md:ml-auto w-full md:w-auto border-none outline-none bg-lightRed px-12 py-2 rounded-lg text-lg text-primary font-semibold shadow-xl transition-all ease-in-out duration-100"
             onClick={saveDetails}
           >
             Save 
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>
