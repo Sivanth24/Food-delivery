@@ -2,16 +2,17 @@ import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { HiStar } from 'react-icons/hi'
 import { motion } from "framer-motion";
+import { useStateValue } from "../context/StateProvider";
 
 const Rating = ({ count, rating, color, onRating, index }) => {
-
+  const [{ theme }] = useStateValue()
   const [hoverRating, setHoverRating] = useState(0);
 
   const getColor = (index) => {
     if (hoverRating >= index) {
-      return color.filled;
+      return theme ? color.redfilled : color.bluefilled;
     } else if (!hoverRating && rating >= index) {
-      return color.filled;
+      return theme ? color.RedFilled : color.bluefilled;
     }
     return color.unfilled;
   };
@@ -52,7 +53,8 @@ Rating.defaultProps = {
   count: 5,
   rating: 0,
   color: {
-    filled: "#000000",
+    bluefilled: "#30475E",
+    redfilled: "#F05454",
     unfilled: "#DCDCDC",
   },
 };

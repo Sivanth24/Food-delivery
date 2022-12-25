@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import NotFound from '../img/NotFound.svg'
 import { motion } from 'framer-motion'
 import { TiShoppingCart } from 'react-icons/ti'
 import Rating from './Rating'
+import { useStateValue } from '../context/StateProvider'
+import { actionType } from '../context/reducer'
 
 const RowContainer = ({ flag, data, setData, rowContainer }) => {
+    const [{ theme, cartItems }, dispatch] = useStateValue()
+    const [cartData, setCartData] = useState([])
 
     const setRatingField =(id, value) => {
         console.log('setRatingField',id, value)
@@ -13,6 +18,19 @@ const RowContainer = ({ flag, data, setData, rowContainer }) => {
         setData(newData);
       }
     
+      const addToCart = () => {
+        dispatch({
+            type : actionType.SET_CART_ITEMS,
+            cartItems : cartData,
+        })
+        localStorage.setItem('cartItems', JSON.stringify(cartData))
+      }
+
+      useEffect(() => {
+        addToCart();
+        // eslint-disable-next-line
+      }, [cartData])
+    
   return (
     <div
         ref={rowContainer}
@@ -20,11 +38,11 @@ const RowContainer = ({ flag, data, setData, rowContainer }) => {
             flag ? "overflow-x-scroll scrollbar-none" : "overflow-x-hidden flex-wrap justify-center"
         }`}
     >
-        { data && data.map((item,index) => (
+        { data && data.length > 0 ? data.map((item,index) => (
             <motion.div 
                 whileHover={{scale: 1.05}} 
                 key={item?.id} 
-                className="w-275 min-w-[275px] md:w-300 md:min-w-[300px] h-[175px] mx-4 my-12 flex items-center justify-between bg-primary rounded-lg p-2 backdrop-blur-lg hover:drop-shadow-lg transition-all ease-in-out duration-100"
+                className={`w-275 min-w-[275px] md:w-300 md:min-w-[300px] h-[175px] mx-4 my-12 flex items-center justify-between ${theme ? 'bg-darkGray' : 'bg-lightGray'} rounded-lg p-2 backdrop-blur-lg hover:drop-shadow-lg transition-all ease-in-out duration-100`}
             >
                 <div className="w-full h-full">
                     <motion.img
@@ -34,27 +52,36 @@ const RowContainer = ({ flag, data, setData, rowContainer }) => {
                         className="w-40 max-h-40 -mt-10 drop-shadow-2xl" 
                     />
                     <div className="absolute bottom-5 ml-2">
-                        <div className="flex gap-1 items-center justify-center">Rating: {<Rating  index={index} rating={data[index]?.hasOwnProperty('rating') ? data[index]?.rating:0 } onRating={setRatingField} />}</div>
+                        <div className={`flex gap-1 items-center justify-center ${theme ? 'text-primary' : 'text-textColor'}`}>Rating: {<Rating  index={index} rating={data[index]?.hasOwnProperty('rating') ? data[index]?.rating:0 } onRating={setRatingField} theme={theme} />}</div>
                     </div>
                 </div>
                 <div className="w-full flex flex-col items-end justify-center gap-4">
-                    <motion.div whileTap={{scale: 0.75}} className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md">
-                        <TiShoppingCart  className="text-white"/>
+                    <motion.div 
+                        whileTap={{scale: 0.75}} 
+                        className={`w-8 h-8 rounded-full ${theme ? 'bg-lightRed' : 'bg-blueText'} flex items-center justify-center cursor-pointer hover:shadow-md`}
+                        onClick={() => setCartData([...cartItems, item])}
+                    >
+                        <TiShoppingCart  className="text-primary"/>
                     </motion.div>
                     <div className="w-full h-28 flex flex-col items-end justify-end">
-                        <p className="text-textColor font-semibold text-base md:text-lg text-right">
+                        <p className={`${theme ? 'text-primary' : 'text-textColor'} font-semibold text-base md:text-lg text-right`}>
                             {item?.title}
                         </p>
-                        <p className="mt-1 text-sm text-gray-500">{item?.calories} Calories</p>
+                        <p className={`mt-1 text-sm ${theme ? 'text-lightRed' : 'text-blueText'}`}>{item?.calories} Calories</p>
                         <div className="flex items-center">
-                            <p className="text-lg text-textColor font-semibold">
-                                <span className="text-sm text-red-500">$</span> {item?.price}
+                            <p className={`text-lg ${theme ? 'text-primary' : 'text-textColor'} font-semibold`}>
+                                <span className={`text-sm ${theme ? 'text-lightRed' : 'text-blueText'}`}>$</span> {item?.price}
                             </p>
                         </div>
                     </div>
                 </div>
             </motion.div>
-        ))}
+        )): (
+            <div className="w-full flex flex-col items-center justify-center gap-3 md:gap-4">
+                <img src={NotFound} alt="NotFound" className="h-300" />
+                <p className={`text-xl font-medium ${theme ? 'text-primary' : 'text-textColor'}`}>Items Not Available</p>
+            </div>
+        )}
     </div>
   )
 }
