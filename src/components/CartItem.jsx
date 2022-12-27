@@ -10,11 +10,11 @@ const CartItem = ({ item, flag, setFlag }) => {
     const [qty, setQty] = useState(item?.quantity)
 
     const cartDispatch = () => {
-        localStorage.setItem('cartItems', JSON.stringify(items))
-        dispatch({
-            type : actionType.SET_CART_ITEMS,
-            cartItems : items,
-        })
+      localStorage.setItem('cartItems', JSON.stringify(items))
+      dispatch({
+          type : actionType.SET_CART_ITEMS,
+          cartItems : items,
+      })
     }
 
     const updateQty = (action, id) => {

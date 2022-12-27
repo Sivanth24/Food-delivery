@@ -32,7 +32,7 @@ const CartContainer = () => {
         type : actionType.SET_CART_ITEMS,
         cartItems : []
       })
-      localStorage.setItem('cartItems', JSON.stringify(cartItems))
+      localStorage.setItem('cartItems', JSON.stringify([]))
     }
 
   return (

@@ -7,8 +7,8 @@ import { getAllFoodItems } from "./utils/firebaseFunctions"
 import { actionType } from "./context/reducer"
 
 const App = () => {
-    const [{ theme }, dispatch] = useStateValue()
-    const switchBg = theme ? 'bg-textColor' : 'bg-primary'
+  const [{ theme }, dispatch] = useStateValue()
+  const switchBg = theme ? 'bg-textColor' : 'bg-primary'
 
     const fetchData = async () => {
       await getAllFoodItems().then(data => {
