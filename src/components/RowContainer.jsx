@@ -8,13 +8,11 @@ import { actionType } from '../context/reducer'
 
 const RowContainer = ({ flag, data, setData, rowContainer }) => {
     const [{ theme, cartItems }, dispatch] = useStateValue()
-    const [cartData, setCartData] = useState([])
+    const [cartData, setCartData] = useState(cartItems.length > 0 ? cartItems :[])
 
     const setRatingField =(id, value) => {
-        console.log('setRatingField',id, value)
         const newData = {...data };
         newData[id].rating = value;
-        console.log('setRatingField',id,newData[id])
         setData(newData);
       }
     
@@ -24,6 +22,7 @@ const RowContainer = ({ flag, data, setData, rowContainer }) => {
             cartItems : cartData,
         })
         localStorage.setItem('cartItems', JSON.stringify(cartData))
+
       }
 
       useEffect(() => {
