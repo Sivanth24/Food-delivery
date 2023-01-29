@@ -68,8 +68,8 @@ const Header = () => {
         {/* desktop & tablet */}
         <div className="hidden md:flex w-full h-full items-center justify-between">
             <Link to={"/"} className="flex items-center gap-2">
-                <img src={Logo} className="w-8 object-cover" alt='logo' />
-                <p className={`${switchText} text-xl font-bold`}>City</p>
+                <img src={Logo} className="w-14 object-cover" alt='logo' />
+                <p className={`${switchText} text-xl font-bold`}>Sivanth's Restaurant</p>
             </Link>
             <div className="flex items-center gap-8">
                 <motion.ul
@@ -163,8 +163,8 @@ const Header = () => {
                 )}
             </div>
             <Link to={"/"} className="flex items-center gap-2">
-                <img src={Logo} className="w-8 object-cover" alt='logo' />
-                <p className={`${switchText} text-xl font-bold`}>City</p>
+                <img src={Logo} className="w-14 object-cover" alt='logo' />
+                <p className={`${switchText} text-xl font-bold`}>Sivanth's Restaurant</p>
             </Link>
             <div className="relative">
                 <motion.img
